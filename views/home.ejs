@@ -1,11 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-</head>
-<body>
-    <h1>Hola</h1>
-</body>
-</html>
+<%- include("partials/header"); %> <!-- Incluimos el partial del header -->
+
+    <div class="welcome">
+        <h1>Find your favorite superheroe</h1>
+    </div>
+
+    <div class="dheroes">
+        <% superheroes.forEach(function(hero) { %>
+          <%- include('partials/cardHero', { hero: hero }) %> <!-- Incluimos el partial de la card -->
+        <% }) %>
+      </div>
+
+
+
+<!-- Paginación simple -->
+<nav aria-label="Superhero Pagination" class="pagination-container">
+    <ul class="pagination justify-content-center">
+        <!-- Botón anterior -->
+        <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+            <a class="page-link" href="/?page=<%= currentPage - 1 %>">Previous</a>
+        </li>
+
+        <!-- Primera página siempre visible -->
+        <% if (currentPage > 3) { %>
+            <li class="page-item">
+                <a class="page-link" href="/?page=1">1</a>
+            </li>
+            <li class="page-item disabled">
+                <span class="page-link">...</span>
+            </li>
+        <% } %>
+
+        <!-- Páginas cercanas a la actual (2 anteriores, la actual, 2 siguientes) -->
+        <% for(let i = currentPage - 2; i <= currentPage + 2; i++) { %>
+            <% if (i > 0 && i <= totalPages) { %>
+                <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                    <a class="page-link" href="/?page=<%= i %>"><%= i %></a>
+                </li>
+            <% } %>
+        <% } %>
+
+        <!-- Última página siempre visible -->
+        <% if (currentPage < totalPages - 2) { %>
+            <li class="page-item disabled">
+                <span class="page-link">...</span>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="/?page=<%= totalPages %>"><%= totalPages %></a>
+            </li>
+        <% } %>
+
+        <!-- Botón siguiente -->
+        <li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
+            <a class="page-link" href="/?page=<%= currentPage + 1 %>">Next</a>
+        </li>
+    </ul>
+</nav>
+<%- include("partials/footer"); %> <!-- Incluimos el partial del footer-->

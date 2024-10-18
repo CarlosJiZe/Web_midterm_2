@@ -1,0 +1,22 @@
+
+<%- include("partials/header"); %> <!-- Incluimos el partial del header -->
+    <div class="welcome">
+        <h1>Search Results for "<%= query %>"</h1>
+    </div>
+    
+    
+    <% if (heroes.length > 0) { %>
+      <div class="dheroes">
+        <% heroes.forEach(function(hero) { %>
+          <%- include('partials/cardHero', { hero: hero }) %> <!-- Usamos el partial de las cards -->
+        <% }) %>
+      </div>
+    <% } else { %>
+      <p class="noFound">No superheroes found for "<%= query %>".</p>
+    <% } %>
+    
+    <div class="backdossg">
+        <a href="/" class="btn btn-outline-dark backdoss">Back to List</a>
+     </div>
+
+<%- include("partials/footer"); %> <!-- Incluimos el partial del footer-->

@@ -1,0 +1,70 @@
+<div class="card">
+    <div class="face front">
+            <img src="<%= hero.images.lg %>" alt="<%= hero.name %>"
+                 onerror="this.onerror=null; this.src='/img/placeholder_super.png';">
+      <h3><%= hero.name %></h3>
+      <p class="prof">
+        <span class="label">Occupation:</span> <%= hero.work.occupation && hero.work.occupation !== '-' ? hero.work.occupation : 'Unknown' %>
+      </p>
+      <p class="prof">
+        <span class="label">Publisher:</span> <%= hero.biography.publisher && hero.biography.publisher !== '-' ? hero.biography.publisher : 'Unknown' %>
+      </p>
+    </div>
+    <div class="face back">
+        <h3>Powerstats</h3>
+        <ul class="heroes">
+          <li class="Hero">
+            <strong>Intelligence:</strong>
+            <div class="stat-circle" data-value="<%= hero.powerstats.intelligence %>">
+              <span><%= hero.powerstats.intelligence %></span>
+            </div>
+          </li>
+          <li class="Hero">
+            <strong>Strength:</strong>
+            <div class="stat-circle" data-value="<%= hero.powerstats.strength %>">
+              <span><%= hero.powerstats.strength %></span>
+            </div>
+          </li>
+          <li class="Hero">
+            <strong>Speed:</strong>
+            <div class="stat-circle" data-value="<%= hero.powerstats.speed %>">
+              <span><%= hero.powerstats.speed %></span>
+            </div>
+          </li>
+          <li class="Hero">
+            <strong>Durability:</strong>
+            <div class="stat-circle" data-value="<%= hero.powerstats.durability %>">
+              <span><%= hero.powerstats.durability %></span>
+            </div>
+          </li>
+          <li class="Hero">
+            <strong>Power:</strong>
+            <div class="stat-circle" data-value="<%= hero.powerstats.power %>">
+              <span><%= hero.powerstats.power %></span>
+            </div>
+          </li>
+          <li class="Hero">
+            <strong>Combat:</strong>
+            <div class="stat-circle" data-value="<%= hero.powerstats.combat %>">
+              <span><%= hero.powerstats.combat %></span>
+            </div>
+          </li>
+        </ul>
+        <a href="/hero/<%= hero.id %>" class="btn btn-outline-light">Details</a>
+      </div>
+  </div>
+
+      <!-- Código JavaScript para actualizar los círculos de las estadísticas -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const circles = document.querySelectorAll('.stat-circle');
+    
+      circles.forEach(circle => {
+        const value = circle.getAttribute('data-value');
+        const percentage = Math.min(Math.max(value, 0), 100); // Aseguramos que el valor esté entre 0 y 100
+    
+        // Aplicar el valor de porcentaje como una variable CSS personalizada
+        circle.style.setProperty('--value', percentage);
+      });
+    });
+</script>
